@@ -1,0 +1,24 @@
+<!-- templates/create_job_request.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h2>Create Job Request</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Job Title:</label><br>
+        <input type="text" id="title" name="title"><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description"></textarea><br>
+        <label for="pricing">Pricing:</label><br>
+        <input type="number" id="pricing" name="pricing"><br>
+        <label for="duration">Duration:</label><br>
+        <input type="text" id="duration" name="duration"><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
