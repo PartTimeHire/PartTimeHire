@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #555;
+        }
+        .filters {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .filter-label {
+            font-weight: bold;
+        }
+        .filter-input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 150px;
+        }
+        .search-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .search-btn:hover {
+            background-color: #e65c00;
+        }
+        .job-listing {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .job-description {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .job-price {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Job Search</h1>
+        <!-- Form with CSRF token -->
+        <form action="{% url 'job_search' %}?next={{ request.path }}" method="GET" class="filters">
+            {% csrf_token %}
+            <div>
+                <label for="price-range" class="filter-label">Price Range:</label><br>
+                <input type="text" id="price-range" name="price-range" class="filter-input" placeholder="Min - Max (£)">
+            </div>
+            <div>
+                <label for="distance" class="filter-label">Distance:</label><br>
+                <input type="text" id="distance" name="distance" class="filter-input" placeholder="Max Distance (km)">
+            </div>
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+        
+        <!-- Job listing box -->
+        {% for job_request in job_requests %}
+        <div class="job-listing">
+            <div class="job-title">{{ job_request.title }}</div>
+            <div class="job-description">{{ job_request.description }}</div>
+            <div class="job-price">{{ job_request.price }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
